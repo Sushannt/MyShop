@@ -9,7 +9,6 @@ import { clearCart } from "../store/slices/cartSlice";
 import ProductSkeleton from "../components/Loader/ProductSkeleton";
 import ProductCard from "../components/ProductCard";
 import PriceRange from "../components/PriceRange";
-import Sidebar from "../components/Sidebar";
 
 const ProductPage = () => {
   const navigate = useNavigate();
@@ -115,9 +114,6 @@ const ProductPage = () => {
               <ProductCard product={product} key={product.id} />
             ))}
       </ul>
-      <aside>
-        <Sidebar />
-      </aside>
     </section>
   );
 };
