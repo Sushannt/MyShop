@@ -1,5 +1,3 @@
-Sure, I can help you add some emojis to your markdown document. Here's how it might look:
-
 ## E-Commerce Web Application Documentation 📚
 
 ### Overview 🌐
