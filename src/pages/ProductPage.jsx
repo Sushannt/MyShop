@@ -64,9 +64,9 @@ const ProductPage = () => {
     const handle401Error = () => {
       if (allProductsError?.status === 401) {
         // If the error status is 401,
-        dispatch(clearCart());
-        dispatch(logoutUser());
-        navigate("/");
+        dispatch(clearCart())
+          .then(() => dispatch(logoutUser()))
+          .then(() => navigate("/"));
       }
     };
 
