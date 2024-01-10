@@ -4,7 +4,6 @@ import { useLoginMutation } from "../store/slices/loginApiSlice.jsx";
 import { setCredentials } from "../store/slices/authSlice.jsx";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import Loader from "../components/Loader/Loader.jsx";
 import { Spinner } from "keep-react";
 import ecomShop from "../assets/ecomShop.jpg";
 
@@ -17,7 +16,7 @@ const Login = () => {
     password: "",
   });
 
-  const [login, { error, isLoading }] = useLoginMutation();
+  const [login, { isLoading, isSuccess }] = useLoginMutation();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,27 +26,33 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const { data } = await login(formData);
-      dispatch(setCredentials(data));
-      navigate("/");
+      const response = await login(formData);
+
+      if (response.error) {
+        throw new Error(response.error.data.message);
+      }
+      dispatch(setCredentials(response.data));
     } catch (error) {
-      toast.error(error?.data?.message || error.error);
+      console.log("caught error ", error);
+      toast.error(error.message);
     }
   };
 
   useEffect(() => {
-    error?.status === 400 ? toast.error("Invalid Credentials") : null;
-  }, [error]);
+    if (isSuccess) {
+      navigate("/");
+    }
+  }, [isSuccess, navigate]);
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 h-[80vh]">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-4 h-[80vh] bg-slate-200 py-5">
       <img
         src={ecomShop}
         alt="shopping"
-        className="w-full h-full object-cover object-center overflow-y-hidden md:h-full md:rounded-r-lg"
+        className="w-full h-full object-cover object-center overflow-hidden md:h-full md:rounded-r-lg"
       />
       <form
-        className="relative flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border mx-auto mt-24 min-w-[404px]"
+        className="relative flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border mx-auto mt-24 min-w-[24%]"
         onSubmit={handleSubmit}
       >
         <div className="relative grid mx-4 mb-4 -mt-6 overflow-hidden text-white shadow-lg h-28 place-items-center rounded-xl bg-gradient-to-tr from-gray-900 to-gray-800 bg-clip-border shadow-gray-900/20">
