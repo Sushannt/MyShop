@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
         href="#"
       >
         <img
-          className="object-cover w-72 hover:scale-125 transition"
+          className="object-cover w-72 hover:scale-125 aspect-square transition"
           src={product.images[0]}
           alt="product image"
         />

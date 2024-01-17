@@ -5,7 +5,7 @@ import { setCredentials } from "../store/slices/authSlice.jsx";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "keep-react";
-import ecomShop from "../assets/ecomShop.jpg";
+import ecomShop from "../assets/ecomShop-small.jpg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,6 +36,15 @@ const Login = () => {
       console.log("caught error ", error);
       toast.error(error.message);
     }
+  };
+
+  const handleGuestSignIn = () => {
+    setFormData({
+      username: "atuny0",
+      password: "9uQFF1Lh",
+    });
+
+    handleSubmit();
   };
 
   useEffect(() => {
@@ -125,12 +134,18 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className="p-6 pt-0">
+        <div className="p-6 pt-0 space-y-4">
           <button
             className="block w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="submit"
           >
             {isLoading ? <Spinner color="gray" size="lg" /> : "Sign In"}
+          </button>
+          <button
+            className="block w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            onClick={handleGuestSignIn}
+          >
+            Guest Sign In
           </button>
           <p className="flex justify-center mt-6 font-sans text-sm antialiased font-light leading-normal text-inherit">
             Don&apos;t have an account?
